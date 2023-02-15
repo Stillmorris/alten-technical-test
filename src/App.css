@@ -130,7 +130,144 @@ table {
 
 /* Main App Styles */
 .App {
-  max-width: 75em;
-  margin: 1em auto; 
   font-family: Roboto, sans-serif;
+  font-size: 1.1em;
+  margin: 1em auto; 
+  max-width: 75em;
+}
+/* Calendar */
+.Calendar {
+  display: flex;
+}
+
+/* Employees */
+.Employees {
+  width: 30%;
+}
+.Employees-header {
+  height: 3em;
+}
+.Employees-title {
+  background-color: #eee;
+  border: .1em solid #ccc;
+  border-right-width: 0em;
+  border-top-width: .3em;
+  display: block;
+  font-size: 1.41em;
+  padding: .4em .2em;
+  height: 1em;
+  text-transform: uppercase;
+}
+.Employee-name {
+  flex-grow: 2;
+  padding-left: .8em;
+}
+.Employee-listItem {
+  align-items: center;
+  border: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  padding: .4em;
+}
+.Employee-totalHolydays {
+  background-color: #69AC5C;
+  color: white;
+  display: inline-block;
+  padding: .3em;
+}
+
+/* EmployeesPick */
+.PickDates {
+  width: 70%;
+  overflow-x: auto;
+}
+.PickDates-headerContainer {
+  width: fit-content;
+}
+.PickDates-header {
+  display: flex;
+}
+.HeaderMonth-name {
+  background-color: #eee;
+  border-left: .3em solid #ccc;
+  font-size: 1.1em;
+  height: 1.4em;
+  line-height: 1.5em;
+  text-align: center;
+  width: 20em;
+}
+.HeaderMonth .PickDates {
+  height: 1.5em;
+}
+
+.PickDays {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.PickDays li {
+  border: 1px solid #ddd;
+  display: flex;
+  padding: 0em;
+  text-align: center;
+  width: 1.7em;
+  height: 1.5em;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.PickDays li.AZUL {
+  background-color: #4473e2;
+  color: white;
+}
+.PickDays li.ROJO {
+  background-color: #8e342f;
+  color: white;
+}
+
+.PickDates-void {
+  background-color: #eee;
+  border: .1em solid #ccc;
+  border-left-width: 0em;
+  border-top-width: .3em;
+  display: block;
+  font-size: 1.4em;
+  padding: .4em .2em;
+  height: 1em;
+}
+
+.PickDates-checkboxes {
+  display: flex;
+}
+.PickDates-checkboxes .PickDays {
+  height: 2.7em;
+}
+.PickDates-checkboxes li label {
+  border: .1em solid #fff;
+  box-shadow: inset 0 0 0 .1em #ddd;
+  display: flex;
+  padding: 0em;
+  text-align: center;
+  width: 1.7em;
+  height: 2.7em;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.PickDates-checkboxes li label span {
+  opacity: 0;
+  font-weight: bold;
+}
+.PickDates-checkboxes input:checked + span {
+  opacity: 1;
+}
+.PickDates-checkboxes li.AZUL label {
+  background-color: #4473e2;
+  box-shadow: inset 0 0 0 .1em #2449a0;
+  color: white;
+}
+.PickDates-checkboxes li.ROJO label {
+  background-color: #ffd9d6;
+  box-shadow: inset 0 0 0 .1em #8e342f;
+  color: white;
 }
