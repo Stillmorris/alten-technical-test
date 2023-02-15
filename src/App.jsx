@@ -115,7 +115,7 @@ function App() {
                       <ul className="PickDays">
                         {month.map((day) => (
                           <li key={v4()}>
-                            {day.fecha.toString().substring(6, 8)}
+                            {parseInt(day.fecha.toString().substring(6, 8))}
                           </li>
                         ))}
                       </ul>
