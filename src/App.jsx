@@ -4,7 +4,7 @@ import employeesMock from "./mocks/employees.json";
 import { v4 } from "uuid";
 import { useEffect, useRef, useState } from "react";
 import Employee from "./components/Employee";
-import EmployeeCheckHolydays from "./components/EmployeeCheckHolydays";
+import EmployeeCheckHolidays from "./components/EmployeeCheckHolidays";
 import CalendarHeader from "./components/CalendarHeader";
 
 function App() {
@@ -84,7 +84,7 @@ function App() {
               <ul className="PickDates-checkboxes">
                 {Object.keys(parsedCalendar).map((year) => {
                   return parsedCalendar[year].map((month) => (
-                    <EmployeeCheckHolydays
+                    <EmployeeCheckHolidays
                       monthData={month}
                       employeeData={employee}
                       key={v4()}
