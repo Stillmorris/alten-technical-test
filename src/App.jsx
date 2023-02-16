@@ -1,40 +1,23 @@
 import "./App.css";
-import userIcon from "./assets/user.png";
 import calendarMock from "./mocks/calendar.json";
 import employeesMock from "./mocks/employees.json";
 import { v4 } from "uuid";
 import { useEffect, useRef, useState } from "react";
+import Employee from "./components/Employee";
+import EmployeeCheckHolydays from "./components/EmployeeCheckHolydays";
+import CalendarHeader from "./components/CalendarHeader";
 
 function App() {
   const [employees, setEmployees] = useState([]);
-  const [holydays, setHolydays] = useState([]);
   const [parsedCalendar, setParsedCalendar] = useState([]);
   const previousData = useRef({});
-
-  const months = {
-    1: "Enero",
-    2: "Febrero",
-    3: "Marzo",
-    4: "Abril",
-    5: "Mayo",
-    6: "Junio",
-    7: "Julio",
-    8: "Agosto",
-    9: "Septiembre",
-    10: "Octubre",
-    11: "Noviembre",
-    12: "Diciembre",
-  };
 
   useEffect(() => {
     // Importing employees from json mock.
     setEmployees(employeesMock.data || []);
+    // Parsing object for picking days on calendar.
     setParsedCalendar(getParsedCalendar);
   }, []);
-
-  useEffect((() => {
-    // console.log(holydays);
-  }),[holydays]);
 
   function getParsedCalendar() {
     if (Object.keys(previousData.current).length === 0) {
@@ -62,16 +45,6 @@ function App() {
     }
   }
 
-  const handleChange = (target, employeeId) => {
-    console.log(target.id, target.checked, employeeId);
-    const obj = {
-      employeeId: employeeId,
-      target: target.id,
-      checked: target.checked
-    }
-    // setHolydays(...holydays, obj);
-  };
-
   return (
     <div className="App">
       <div className="Calendar">
@@ -82,21 +55,11 @@ function App() {
           </div>
           <ul className="Employees-list">
             {employees.map((employee) => (
-              <li className="Employee-listItem" key={employee.id}>
-                <img
-                  className="Employee-icon"
-                  src={userIcon}
-                  alt="Calendar Employee Icon"
-                  width={32}
-                  height={32}
-                />
-                <span className="Employee-name">
-                  {employee.first_name} {employee.last_name}
-                </span>
-                <span className="Employee-totalHolydays">
-                  0/{employee.total_holidays}
-                </span>
-              </li>
+              <Employee
+                employeeData={employee}
+                employeeHolydays={0}
+                key={employee.id}
+              />
             ))}
           </ul>
         </div>
@@ -104,24 +67,14 @@ function App() {
           <div className="PickDates-headerContainer">
             <div className="PickDates-header">
               {Object.keys(parsedCalendar).map((year) => {
-                return parsedCalendar[year].map((month, mkey) => {
-                  return (
-                    <div className="HeaderMonth" key={v4()}>
-                      <div className="HeaderMonth-name">
-                        <span>
-                          {months[mkey]} / {year}
-                        </span>
-                      </div>
-                      <ul className="PickDays">
-                        {month.map((day) => (
-                          <li key={v4()}>
-                            {parseInt(day.fecha.toString().substring(6, 8))}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                });
+                return parsedCalendar[year].map((month, mkey) => (
+                  <CalendarHeader
+                    yearData={year}
+                    monthData={month}
+                    monthKey={mkey}
+                    key={v4()}
+                  />
+                ));
               })}
             </div>
             <div className="PickDates-void"></div>
@@ -130,25 +83,13 @@ function App() {
             <div className="Row" key={v4()}>
               <ul className="PickDates-checkboxes">
                 {Object.keys(parsedCalendar).map((year) => {
-                  return parsedCalendar[year].map((month, mkey) => {
-                    return month.map((day) => (
-                      <li key={v4()} className={day.color}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            name={"day_" + day.fecha}
-                            id={"day_" + day.fecha}
-                            hidden
-                            disabled={day.tipoId !== "" ? true : false}
-                            onChange={(event) =>
-                              handleChange(event.target, employee.id)
-                            }
-                          />
-                          <span>x</span>
-                        </label>
-                      </li>
-                    ));
-                  });
+                  return parsedCalendar[year].map((month) => (
+                    <EmployeeCheckHolydays
+                      monthData={month}
+                      employeeData={employee}
+                      key={v4()}
+                    />
+                  ));
                 })}
               </ul>
             </div>
