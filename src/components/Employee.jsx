@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import userIcon from "../assets/user.png";
 
 function EmployeeList(props) {
-  const [employee] = useState(props.employeeData || undefined);
-  const [employee_holydays] = useState(props.employeeHolydays || 0);
+  const [employee, setEmployee] = useState(null);
 
-  if (employee !== undefined) {
+  useEffect(() => {
+    if (props.employeeData !== undefined) {
+      setEmployee(props.employeeData);
+    }
+  }, []);
+
+  if (employee) {
+    const holydays = JSON.parse(localStorage.getItem("employee_" + employee.id));
+    let checkedHolydays = employee.total_holidays;
+    if (holydays !== null) {
+      holydays.map((elem) => {
+        if (elem.isChecked) {
+          checkedHolydays--;
+        }
+      });
+    }
     return (
       <li className="Employee-listItem">
         <img
@@ -20,7 +34,7 @@ function EmployeeList(props) {
           {employee.first_name} {employee.last_name}
         </span>
         <span className="Employee-totalHolydays">
-          {employee_holydays}/{employee.total_holidays}
+          {checkedHolydays}/{employee.total_holidays}
         </span>
       </li>
     );
