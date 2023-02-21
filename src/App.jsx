@@ -4,19 +4,20 @@ import employeesMock from "./mocks/employees.json";
 import { v4 } from "uuid";
 import { useEffect, useRef, useState } from "react";
 import Employee from "./components/Employee";
-import EmployeeCheckHolydays from "./components/EmployeeCheckHolydays";
+import EmployeeCheckHolidays from "./components/EmployeeCheckHolidays";
 import CalendarHeader from "./components/CalendarHeader";
 
 function App() {
-  const [employees, setEmployees] = useState([]);
-  const [parsedCalendar, setParsedCalendar] = useState([]);
+  const [employees, setEmployees] = useState(null);
+  const [parsedCalendar, setParsedCalendar] = useState(null);
   const previousData = useRef({});
 
   useEffect(() => {
     // Importing employees from json mock.
-    setEmployees(employeesMock.data || []);
+    setEmployees(employeesMock.data);
     // Parsing object for picking days on calendar.
     setParsedCalendar(getParsedCalendar);
+    // Setting holydays object on local storage
   }, []);
 
   function getParsedCalendar() {
@@ -54,10 +55,9 @@ function App() {
             <span>Empleados</span>
           </div>
           <ul className="Employees-list">
-            {employees.map((employee) => (
+            {employees && employees.map((employee) => (
               <Employee
                 employeeData={employee}
-                employeeHolydays={0}
                 key={employee.id}
               />
             ))}
@@ -66,7 +66,7 @@ function App() {
         <div className="PickDates">
           <div className="PickDates-headerContainer">
             <div className="PickDates-header">
-              {Object.keys(parsedCalendar).map((year) => {
+              {parsedCalendar && Object.keys(parsedCalendar).map((year) => {
                 return parsedCalendar[year].map((month, mkey) => (
                   <CalendarHeader
                     yearData={year}
@@ -79,12 +79,12 @@ function App() {
             </div>
             <div className="PickDates-void"></div>
           </div>
-          {employees.map((employee) => (
+          {employees && employees.map((employee) => (
             <div className="Row" key={v4()}>
               <ul className="PickDates-checkboxes">
-                {Object.keys(parsedCalendar).map((year) => {
+                {parsedCalendar && Object.keys(parsedCalendar).map((year) => {
                   return parsedCalendar[year].map((month) => (
-                    <EmployeeCheckHolydays
+                    <EmployeeCheckHolidays
                       monthData={month}
                       employeeData={employee}
                       key={v4()}

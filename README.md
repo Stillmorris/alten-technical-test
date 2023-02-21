@@ -8,8 +8,8 @@ Tecnologías requeridas:
 * CSS (o SASS)
 
 Funcionalidades a implementar:
-* Mostrar un listado de empleados a partir del archivo "employees.json" y los días del calendario para cada uno (calendar.json) representado los distintos tipos de días (laborables, festivos y vacaciones).
-* Seleccionar, almacenar (usando ``localstorage``) y eliminar los días de vacaciones por empleado haciendo click sobre el día. Los días que tengan la propiedad ``"tipo_id": ""`` vacía serán los únicos editables.
+* ✅ Mostrar un listado de empleados a partir del archivo "employees.json" y los días del calendario para cada uno (calendar.json) representado los distintos tipos de días (laborables, festivos y vacaciones).
+* ✅ Seleccionar, almacenar (usando ``localstorage``) y eliminar los días de vacaciones por empleado haciendo click sobre el día. Los días que tengan la propiedad ``"tipo_id": ""`` vacía serán los únicos editables.
 * Actualizar el contador de vacaciones por empleado (situado al lado del nombre) con los días restantes y un máximo de 22.
 * _Opcional:_ Optimizar el renderizados y actualización de los días del calendario de forma que, al seleccionar uno, el resto de días del calendario que no tenga que volver a renderizarse por completo. 
 
